@@ -49,7 +49,7 @@
 7. push on green
    - 의미 : 안전하고 통제된 방식으로 서비스를 자동으로 배포하고 업데이트하는 프로세스이며, 최소한의 사용자 개입을 통해 서비스 배포중 다운 타임 최소화 및 장애상황에 빠른 대응 및 롤백을 지원하기 위한 방법이다.
    - 만약 새로운 WEB 및 WAS 서버를 push on green으로 배포할 떄.
-   - 1차
+   - 1차 - 초기 상태
      ```mermaid
      graph TB
      subgraph Four
@@ -70,7 +70,7 @@
      LB --> B.WEB
      LB --> C.WEB
      ```
-   - 2차
+   - 2차 - 신규 서비스 추가
      ```mermaid
      graph TB
      style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
@@ -101,7 +101,7 @@
      LB --> B.WEB
      LB --> C.WEB
      ```
-   - 3차
+   - 3차 - 신규 서비스 연결
      ```mermaid
      graph TB
      style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
@@ -135,7 +135,7 @@
      LB --> NB.WEB
      LB --> NC.WEB
      ```
-   - 4차
+   - 4차 - 기존 서비스 연결 해제
      ```mermaid
      graph TB
      style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
@@ -167,7 +167,7 @@
      LB --> NB.WEB
      LB --> NC.WEB
      ```
-   - 5차
+   - 5차 - 기존 서비스 삭제
      ```mermaid
      graph TB
      style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
@@ -196,20 +196,21 @@
      LB --> NB.WEB
      LB --> NC.WEB
      ```
-1. SLA
+8. SLA
    - Service Level Agreement -> 서비스 수준 협약
    - SLO를 만족했을때 또는 만족하지 못했을 경우, 보상에 대한 명시적 또는 암묵적인 계약
-2.  SLI
-   - service level indicator -> 서비스 수준 척도
-   - 서비스 수준을 판단할수 있는 정량적으로 측정한 값
-     - 서비스가 사용 가능한 상태로 존재하는 시간의 비율 -> 가용성
-     - 요청에 대한 응답속도
-     - 전체 요청수 대비 에러율
-     - 시스템 처리량 
-11. SLO
-   - service level objective -> 서비스 수준 목표
-   - SLI에 의해서 측정된 값에 대한 목표 값 또는 범위이다.
-     - SLI <= SLO or SLO_MIN <= SLI <= SLO_MAX
+9. SLI
+    - service level indicator -> 서비스 수준 척도,
+    - SLO를 설정할수 있는 기준 지표
+    - 서비스 수준을 판단할수 있는 정량적으로 측정한 값
+      - 서비스가 사용 가능한 상태로 존재하는 시간의 비율 -> 가용성
+      - 요청에 대한 응답속도
+      - 전체 요청수 대비 에러율
+      - 시스템 처리량 
+10. SLO
+    - service level objective -> 서비스 수준 목표
+    - SLI에 의해서 측정된 값에 대한 목표 값 또는 범위이다.
+      - 표현 방식 : SLI <= 목표치 or 목표치_MIN <= SLI <= 목표치_MAX
 
 ---
 
@@ -220,7 +221,17 @@
       - 서비스에 대한 장애 상황을 허용해서 적정 수준의 가용성을 어떻게 확보하고 보장 할것인지에 대한 가이드를 만드는 것이다.
       - 시스템운영/관리팀과 개발팀이 분리되어 있어 각 팀의 배경 지식등의 차이로 인해 문제의 해결방향을 서로 다르게 인식하고 서비스의 안정성 등의 목표를 다르게 설정할수 있다.
       - 개발팀은 언제든지 방해 없이 원하는 서비스를 출시하려고 하고 시스템운영/관리팀은 시스템이 서비스를 시작하게 되면 시스템 변경을 원치 않다.
-2. SRE와 DevOps
+2. SRE의 역활
+   1. 가용성(availability)
+   2. 응답시간(latency)
+   3. 성능(performance)
+   4. 효율성(efficiency)
+   5. 변화관리(change management)
+   6. 모니터링(monitoring)
+      - 최우선 수단 중 하나로 서비스에 대한 시스템의 상태와 가용성을 지속적으로 점검 하는 것.
+      - 가능한 사람이 관여하여 장애를 판단하고 대응하는것을 지양해야한다.
+   7. 위기 대응(emergency)
+   8. 수용량 계획(capacity planning)
 
 ---
 
@@ -250,3 +261,4 @@
 ### 참고 자료
 1. 구글 공식 SRE 관련 자료URL
    1. URL : https://landing.google.com/sre/books/
+2. Gitlab 에 업로드 되어 있는 PDF 자료 참고
