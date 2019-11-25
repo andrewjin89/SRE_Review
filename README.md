@@ -50,156 +50,152 @@
    - 의미 : 안전하고 통제된 방식으로 서비스를 자동으로 배포하고 업데이트하는 프로세스이며, 최소한의 사용자 개입을 통해 서비스 배포중 다운 타임 최소화 및 장애상황에 빠른 대응 및 롤백을 지원하기 위한 방법이다.
    - 만약 새로운 WEB 및 WAS 서버를 push on green으로 배포할 떄.
    - 1차
-```mermaid
-graph TB
-  subgraph Four
-    D.DB1
-    D.DB2
-  end
-  subgraph one
-    A.WEB --> A.WAS --> D.DB1
-  end
-  subgraph two
-    B.WEB --> B.WAS --> D.DB1
-  end
-  subgraph three
-    C.WEB --> C.WAS --> D.DB2
-  end
-
-
-  CLIENT --> LB
-  LB --> A.WEB
-  LB --> B.WEB
-  LB --> C.WEB
-```
+     ```mermaid
+     graph TB
+     subgraph Four
+     D.DB1
+     D.DB2
+     end
+     subgraph one
+     A.WEB --> A.WAS --> D.DB1
+     end
+     subgraph two
+     B.WEB --> B.WAS --> D.DB1
+     end
+     subgraph three
+     C.WEB --> C.WAS --> D.DB2
+     end
+     CLIENT --> LB
+     LB --> A.WEB
+     LB --> B.WEB
+     LB --> C.WEB
+     ```
    - 2차
-```mermaid
-graph TB
-style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     ```mermaid
+     graph TB
+     style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
 
-  subgraph Four
-    D.DB1
-    D.DB2
-  end
-  subgraph one
-    A.WEB --> A.WAS --> D.DB1
-    NA.WEB --> NA.WAS
-  end
-  subgraph two
-    B.WEB --> B.WAS --> D.DB1
-    NB.WEB --> NB.WAS
-  end
-  subgraph three
-    C.WEB --> C.WAS --> D.DB2
-    NC.WEB --> NC.WAS
-  end
-
-  CLIENT --> LB
-  LB --> A.WEB
-  LB --> B.WEB
-  LB --> C.WEB
-```
+     subgraph Four
+     D.DB1
+     D.DB2
+     end
+     subgraph one
+     A.WEB --> A.WAS --> D.DB1
+     NA.WEB --> NA.WAS
+     end
+     subgraph two
+     B.WEB --> B.WAS --> D.DB1
+     NB.WEB --> NB.WAS
+     end
+     subgraph three
+     C.WEB --> C.WAS --> D.DB2
+     NC.WEB --> NC.WAS
+     end
+     CLIENT --> LB
+     LB --> A.WEB
+     LB --> B.WEB
+     LB --> C.WEB
+     ```
    - 3차
-```mermaid
-graph TB
-style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     ```mermaid
+     graph TB
+     style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     subgraph Four
+     D.DB1
+     D.DB2
+     end
+     subgraph one
+     A.WEB --> A.WAS --> D.DB1
+     NA.WEB --> NA.WAS --> D.DB1
+     end
+     subgraph two
+     B.WEB --> B.WAS --> D.DB1
+     NB.WEB --> NB.WAS --> D.DB1
+     end
+     subgraph three
+     C.WEB --> C.WAS --> D.DB2
+     NC.WEB --> NC.WAS --> D.DB2
+     end
 
-  subgraph Four
-    D.DB1
-    D.DB2
-  end
-  subgraph one
-    A.WEB --> A.WAS --> D.DB1
-    NA.WEB --> NA.WAS --> D.DB1
-  end
-  subgraph two
-    B.WEB --> B.WAS --> D.DB1
-    NB.WEB --> NB.WAS --> D.DB1
-  end
-  subgraph three
-    C.WEB --> C.WAS --> D.DB2
-    NC.WEB --> NC.WAS --> D.DB2
-  end
-
-  CLIENT --> LB
-  LB --> A.WEB
-  LB --> B.WEB
-  LB --> C.WEB
-  LB --> NA.WEB
-  LB --> NB.WEB
-  LB --> NC.WEB
-```
+     CLIENT --> LB
+     LB --> A.WEB
+     LB --> B.WEB
+     LB --> C.WEB
+     LB --> NA.WEB
+     LB --> NB.WEB
+     LB --> NC.WEB
+     ```
    - 4차
-```mermaid
-graph TB
-style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     ```mermaid
+     graph TB
+     style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
 
-  subgraph Four
-    D.DB1
-    D.DB2
-  end
-  subgraph one
-    A.WEB --> A.WAS
-    NA.WEB --> NA.WAS --> D.DB1
-  end
-  subgraph two
-    B.WEB --> B.WAS
-    NB.WEB --> NB.WAS --> D.DB1
-  end
-  subgraph three
-    C.WEB --> C.WAS
-    NC.WEB --> NC.WAS --> D.DB2
-  end
+     subgraph Four
+     D.DB1
+     D.DB2
+     end
+     subgraph one
+     A.WEB --> A.WAS
+     NA.WEB --> NA.WAS --> D.DB1
+     end
+     subgraph two
+     B.WEB --> B.WAS
+     NB.WEB --> NB.WAS --> D.DB1
+     end
+     subgraph three
+     C.WEB --> C.WAS
+     NC.WEB --> NC.WAS --> D.DB2
+     end
 
-  CLIENT --> LB
-  LB --> NA.WEB
-  LB --> NB.WEB
-  LB --> NC.WEB
-```
+     CLIENT --> LB
+     LB --> NA.WEB
+     LB --> NB.WEB
+     LB --> NC.WEB
+     ```
    - 5차
-```mermaid
-graph TB
-style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
-style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     ```mermaid
+     graph TB
+     style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+     style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
 
-  subgraph Four
-    D.DB1
-    D.DB2
-  end
-  subgraph one
-    NA.WEB --> NA.WAS --> D.DB1
-  end
-  subgraph two
-    NB.WEB --> NB.WAS --> D.DB1
-  end
-  subgraph three
-    NC.WEB --> NC.WAS --> D.DB2
-  end
+     subgraph Four
+     D.DB1
+     D.DB2
+     end
+     subgraph one
+     NA.WEB --> NA.WAS --> D.DB1
+     end
+     subgraph two
+     NB.WEB --> NB.WAS --> D.DB1
+     end
+     subgraph three
+     NC.WEB --> NC.WAS --> D.DB2
+     end
 
-  CLIENT --> LB
-  LB --> NA.WEB
-  LB --> NB.WEB
-  LB --> NC.WEB
-```
+     CLIENT --> LB
+     LB --> NA.WEB
+     LB --> NB.WEB
+     LB --> NC.WEB
+     ```
 1. SLA
    - Service Level Agreement -> 서비스 수준 협약
    - SLO를 만족했을때 또는 만족하지 못했을 경우, 보상에 대한 명시적 또는 암묵적인 계약
