@@ -34,26 +34,183 @@
    - Mean Time To Repair
    - 의미 : 평균 수리(복구)시간
      - 고장수리(장애복구)까지 걸리는 시간
-5. Provisioning
+5. MTBF
+   - Mean Time Between Failure
+   - 의미 : 평균 고장 시간 간격
+     - MTTR + MTTF = MTBF
+     - ![MTBF](./images/MTBF.png)
+6. Provisioning
    - 의미 : 자원을 미리 준비 해놓은 상태에서 요청이 들어왔을때, 해당 요청사항에 맞게 자원을 공급하는 것
    - 종류
      - 서버 자원 프로비저닝
      - OS 프로비저닝
      - SW 프로비저닝
      - 스토리지 프로비저닝
-6. push on green
+7. push on green
    - 의미 : 안전하고 통제된 방식으로 서비스를 자동으로 배포하고 업데이트하는 프로세스이며, 최소한의 사용자 개입을 통해 서비스 배포중 다운 타임 최소화 및 장애상황에 빠른 대응 및 롤백을 지원하기 위한 방법이다.
-7. SLA
+   - 만약 새로운 WEB 및 WAS 서버를 push on green으로 배포할 떄.
+   - 1차
+```mermaid
+graph TB
+  subgraph Four
+    D.DB1
+    D.DB2
+  end
+  subgraph one
+    A.WEB --> A.WAS --> D.DB1
+  end
+  subgraph two
+    B.WEB --> B.WAS --> D.DB1
+  end
+  subgraph three
+    C.WEB --> C.WAS --> D.DB2
+  end
+
+
+  CLIENT --> LB
+  LB --> A.WEB
+  LB --> B.WEB
+  LB --> C.WEB
+```
+   - 2차
+```mermaid
+graph TB
+style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+
+  subgraph Four
+    D.DB1
+    D.DB2
+  end
+  subgraph one
+    A.WEB --> A.WAS --> D.DB1
+    NA.WEB --> NA.WAS
+  end
+  subgraph two
+    B.WEB --> B.WAS --> D.DB1
+    NB.WEB --> NB.WAS
+  end
+  subgraph three
+    C.WEB --> C.WAS --> D.DB2
+    NC.WEB --> NC.WAS
+  end
+
+  CLIENT --> LB
+  LB --> A.WEB
+  LB --> B.WEB
+  LB --> C.WEB
+```
+   - 3차
+```mermaid
+graph TB
+style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+
+  subgraph Four
+    D.DB1
+    D.DB2
+  end
+  subgraph one
+    A.WEB --> A.WAS --> D.DB1
+    NA.WEB --> NA.WAS --> D.DB1
+  end
+  subgraph two
+    B.WEB --> B.WAS --> D.DB1
+    NB.WEB --> NB.WAS --> D.DB1
+  end
+  subgraph three
+    C.WEB --> C.WAS --> D.DB2
+    NC.WEB --> NC.WAS --> D.DB2
+  end
+
+  CLIENT --> LB
+  LB --> A.WEB
+  LB --> B.WEB
+  LB --> C.WEB
+  LB --> NA.WEB
+  LB --> NB.WEB
+  LB --> NC.WEB
+```
+   - 4차
+```mermaid
+graph TB
+style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+
+  subgraph Four
+    D.DB1
+    D.DB2
+  end
+  subgraph one
+    A.WEB --> A.WAS
+    NA.WEB --> NA.WAS --> D.DB1
+  end
+  subgraph two
+    B.WEB --> B.WAS
+    NB.WEB --> NB.WAS --> D.DB1
+  end
+  subgraph three
+    C.WEB --> C.WAS
+    NC.WEB --> NC.WAS --> D.DB2
+  end
+
+  CLIENT --> LB
+  LB --> NA.WEB
+  LB --> NB.WEB
+  LB --> NC.WEB
+```
+   - 5차
+```mermaid
+graph TB
+style NA.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WEB fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NA.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NB.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+style NC.WAS fill:#ccf,stroke:#f66,stroke-width:2px,stroke-dasharray: 5, 5
+
+  subgraph Four
+    D.DB1
+    D.DB2
+  end
+  subgraph one
+    NA.WEB --> NA.WAS --> D.DB1
+  end
+  subgraph two
+    NB.WEB --> NB.WAS --> D.DB1
+  end
+  subgraph three
+    NC.WEB --> NC.WAS --> D.DB2
+  end
+
+  CLIENT --> LB
+  LB --> NA.WEB
+  LB --> NB.WEB
+  LB --> NC.WEB
+```
+1. SLA
    - Service Level Agreement -> 서비스 수준 협약
    - SLO를 만족했을때 또는 만족하지 못했을 경우, 보상에 대한 명시적 또는 암묵적인 계약
-8. SLI
+2.  SLI
    - service level indicator -> 서비스 수준 척도
    - 서비스 수준을 판단할수 있는 정량적으로 측정한 값
      - 서비스가 사용 가능한 상태로 존재하는 시간의 비율 -> 가용성
      - 요청에 대한 응답속도
      - 전체 요청수 대비 에러율
      - 시스템 처리량 
-9. SLO
+11. SLO
    - service level objective -> 서비스 수준 목표
    - SLI에 의해서 측정된 값에 대한 목표 값 또는 범위이다.
      - SLI <= SLO or SLO_MIN <= SLI <= SLO_MAX
